@@ -1,0 +1,24 @@
+[Unit]
+Description=QRobot QQ chat assistant
+Documentation=file:%h/Qrobot/README.md
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Qrobot
+EnvironmentFile=-%h/Qrobot/.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=%h/Qrobot/.venv/bin/python -m qrobot --config %h/Qrobot/qrobot.json run --dry-run
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+NoNewPrivileges=true
+PrivateTmp=true
+
+# 桌面模式需要把这些变量导入 systemd user manager：
+# systemctl --user import-environment DISPLAY DBUS_SESSION_BUS_ADDRESS XAUTHORITY
+PassEnvironment=DISPLAY DBUS_SESSION_BUS_ADDRESS XAUTHORITY
+
+[Install]
+WantedBy=default.target

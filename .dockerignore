@@ -1,0 +1,16 @@
+.git
+.github
+.env*
+.venv*
+qrobot.json
+data
+tests
+deploy
+**/__pycache__
+**/*.py[cod]
+*.egg-info
+**/*.egg-info
+.pytest_cache
+.ruff_cache
+dist
+build

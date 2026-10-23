@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "qrobot"
+version = "0.2.0"
+description = "A cautious QQ + LLM chat assistant using desktop automation or OneBot 11"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "QRobot contributors" }]
+dependencies = [
+  "httpx>=0.27,<1",
+  "python-dotenv>=1.0,<2",
+]
+
+[project.optional-dependencies]
+onebot = ["websockets>=12,<16"]
+copilot = ["github-copilot-sdk>=1.0,<2; python_version >= '3.11'"]
+search = ["ddgs>=9,<10"]
+dev = [
+  "pytest>=8,<10",
+  "pytest-asyncio>=0.24,<2",
+  "ruff>=0.9,<1",
+]
+all = [
+  "websockets>=12,<16",
+  "github-copilot-sdk>=1.0,<2; python_version >= '3.11'",
+  "ddgs>=9,<10",
+]
+
+[project.scripts]
+qrobot = "qrobot.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
